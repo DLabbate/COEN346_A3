@@ -1,4 +1,5 @@
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.Random;
 
 public class Process implements Runnable {
 	
@@ -90,8 +91,18 @@ public class Process implements Runnable {
 	{
 		long EnterTime = System.currentTimeMillis();
 
-		while ((System.currentTimeMillis() - EnterTime) <= quantumTime)
+		double previousRemainingTime = this.remainingTime;
+		
+		double runTime = Math.min(this.quantumTime,this.remainingTime);
+		Random rand = new Random();
+		int delay = rand.nextInt(500);
+		while ( ((System.currentTimeMillis() - EnterTime) <= runTime) && (!isFinished()))
 		{
+			if ( (System.currentTimeMillis() - EnterTime) == delay )
+			{
+				System.out.println("(Time, ms: " + Scheduler.getElapsedtime() + ") " + "Process #" + ID + " Running -" + " Remaining Time: " + remainingTime);
+			}
+
 			//Running!
 		}
 		
@@ -174,7 +185,8 @@ public class Process implements Runnable {
 	public void updateQuantumTime()
 	{ 
 		double scale = 0.10;
-		this.quantumTime = scale * remainingTime;
+		//this.quantumTime = scale * remainingTime;
+		this.quantumTime = 1000;
 	}
 	
 	public void incrementWaitingTime(double delta)

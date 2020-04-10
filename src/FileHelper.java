@@ -24,6 +24,9 @@ public class FileHelper 										//*This class is used to help parse the Input.
 	
 	public void FillWaitingProcesses()
 	{
+		String numLinesString = scanner.nextLine();
+		int numLines = Integer.parseInt(numLinesString);
+		
 		while (scanner.hasNextLine())						
 		{
 			Process process = new Process();
