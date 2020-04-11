@@ -23,7 +23,12 @@ public class Process implements Runnable {
 	
 	public static final ReentrantLock mutex = new ReentrantLock(); //This mutex lock makes sure only one process has the CPU at a given time
 	
+	//Command List
 	public static ArrayList<Command> commandList;
+	public static int counter = 0;
+	
+	//VMM reference
+	public static VMM vmm;
 	//*******************************************************************************************************************************************
 	
 	Process() //Hardcoded values for testing
@@ -200,5 +205,31 @@ public class Process implements Runnable {
 	public double getWaitingTime()
 	{
 		return waitingTime;
+	}
+	
+	public void doNextCommand()
+	{
+		//Do comman
+		//doCommand(counter)
+		
+		
+		Command currentCommand = commandList.get(counter);
+		
+		if (currentCommand.getType() == "Store")
+		{
+			//vmm.store()
+		}
+		
+		else if (currentCommand.getType() == "Lookup")
+		{
+			//vmm.lookup()
+		}
+		
+		else if (currentCommand.getType() == "Release")
+		{
+			
+		}
+		
+		counter++;
 	}
 }

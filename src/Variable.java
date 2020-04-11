@@ -1,9 +1,10 @@
+import java.sql.*;
 
 public class Variable {
 
 	String id;
 	int value;
-	long lastAccessTime; //We use long because we are using the System clock (in ms)
+	Timestamp lastAccessTime; //We use long because we are using the System clock (in ms)
 	
 	public Variable()
 	{
@@ -22,10 +23,10 @@ public class Variable {
 	public void setValue(int value) {
 		this.value = value;
 	}
-	public long getLastAccessTime() {
+	public Timestamp getLastAccessTime() {
 		return lastAccessTime;
 	}
-	public void setLastAccessTime(long lastAccessTime) {
+	public void setLastAccessTime(Timestamp lastAccessTime) {
 		this.lastAccessTime = lastAccessTime;
 	}
 	
