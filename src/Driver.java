@@ -9,9 +9,12 @@ public class Driver {
 
 	public static void main(String[] args) {
 			
-		FileHelper fileHelper = new FileHelper("src/input.txt","src/commands.txt"); 			//We use this to help parse input.txt
-		fileHelper.FillWaitingProcesses();														//We fill an ArrayList of type Process
+		FileHelper fileHelper = new FileHelper("src/input.txt","src/commands.txt","src/memconfig.txt"); 			//We use this to help parse input.txt
+		fileHelper.FillWaitingProcesses();																		//We fill an ArrayList of type Process
 		fileHelper.FillCommandList();
+		fileHelper.FillMemConfig();
+		
+		VMM vmm = new VMM(fileHelper.getMemConfig());
 		
 		Scheduler scheduler = new Scheduler();
 		ArrayList<Process> waitingList = fileHelper.getwaitingProcesses();

@@ -6,8 +6,10 @@ public class FileHelper 										//*This class is used to help parse the Input.
 {		
 	Scanner scannerProcess;										//Using scanner to read input
 	Scanner scannerCommands;
+	Scanner scannerMemConfig;
 	ArrayList<Process> waitingProcesses = new ArrayList<Process>();
 	ArrayList<Command> commandList = new ArrayList<>();
+	int memConfig;
 	
 	public FileHelper(String string)
 	{
@@ -32,6 +34,25 @@ public class FileHelper 										//*This class is used to help parse the Input.
 			File fileCommand = new File(stringCommand);
 			scannerProcess = new Scanner(fileProcess);						//Create scanner with appropriate file 
 			scannerCommands = new Scanner(fileCommand);						//Create scanner with appropriate file 
+		}
+		
+		catch(FileNotFoundException e)
+		{
+			System.out.println("FILE NOT FOUND!");
+		}
+		
+	}
+	
+	public FileHelper(String stringProcess, String stringCommand, String stringMemConfig)
+	{
+		try 
+		{
+			File fileProcess = new File(stringProcess);
+			File fileCommand = new File(stringCommand);
+			File fileMemConfig = new File(stringMemConfig);
+			scannerProcess = new Scanner(fileProcess);						//Create scanner with appropriate file 
+			scannerCommands = new Scanner(fileCommand);						//Create scanner with appropriate file 
+			scannerMemConfig = new Scanner(fileMemConfig);					//Create scanner with appropriate file 
 		}
 		
 		catch(FileNotFoundException e)
@@ -109,6 +130,24 @@ public class FileHelper 										//*This class is used to help parse the Input.
 			commandList.add(command);
 		}
 		scannerCommands.close();	
+	}
+	
+	public void FillMemConfig()
+	{
+		String memConfig = scannerMemConfig.nextLine();
+		this.memConfig = Integer.parseInt(memConfig);
+		
+		System.out.println("MemConfig: " + memConfig);
+		
+		scannerMemConfig.close();	
+	}
+
+	public int getMemConfig() {
+		return memConfig;
+	}
+
+	public void setMemConfig(int memConfig) {
+		this.memConfig = memConfig;
 	}
 
 	public ArrayList<Command> getCommandList() {
