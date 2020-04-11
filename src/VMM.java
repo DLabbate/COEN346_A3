@@ -178,8 +178,9 @@ public class VMM implements Runnable{
 							int swapIndex = findLeastAccessTime();
 							Variable temp = mainMemory[swapIndex];
 							mainMemory[swapIndex] = variable;
-							System.out.println("SWAP: " + "Variable " + variable.getId() + " With " +  temp.getId() );
 							System.out.println("LOOKUP: " + "Variable " + variable.getId() + " , Value: " +  variable.getValue() );
+							System.out.println("Memory Manager --> SWAP: " + "Variable " + variable.getId() + " With " +  temp.getId() );
+							
 							
 							//Free Spot in Storage
 							Path path = Paths.get("src/storage.txt");

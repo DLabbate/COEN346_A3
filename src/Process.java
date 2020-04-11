@@ -108,6 +108,7 @@ public class Process implements Runnable {
 		{
 			if ( (System.currentTimeMillis() - EnterTime) == delay )
 			{
+				doNextCommand();
 				System.out.println("(Time, ms: " + Scheduler.getElapsedtime() + ") " + "Process #" + ID + " Running -" + " Remaining Time: " + remainingTime);
 			}
 
@@ -192,7 +193,7 @@ public class Process implements Runnable {
 	
 	public void updateQuantumTime()
 	{ 
-		double scale = 0.10;
+		//double scale = 0.10;
 		//this.quantumTime = scale * remainingTime;
 		this.quantumTime = 1000;
 	}
@@ -208,28 +209,29 @@ public class Process implements Runnable {
 	}
 	
 	public void doNextCommand()
-	{
-		//Do comman
-		//doCommand(counter)
-		
-		
-		Command currentCommand = commandList.get(counter);
-		
-		if (currentCommand.getType() == "Store")
+	{	
+		if (counter < commandList.size())
 		{
-			//vmm.store()
-		}
-		
-		else if (currentCommand.getType() == "Lookup")
-		{
-			//vmm.lookup()
-		}
-		
-		else if (currentCommand.getType() == "Release")
-		{
+			Command currentCommand = commandList.get(counter);
+			String currentID = currentCommand.getVariableID();
+			int currentValue = currentCommand.getVariableValue();
+			System.out.print("(Time, ms: " + Scheduler.getElapsedtime() + ") " + "Process #" + ID + " ");
+			if (currentCommand.getType().equals("Store"))
+			{
+				vmm.Store(currentID, currentValue);
+			}
 			
+			else if (currentCommand.getType().equals("Lookup"))
+			{
+				vmm.Lookup(currentID);
+			}
+			
+			else if (currentCommand.getType().equals("Release"))
+			{
+				vmm.Release(currentID);
+			}
+			
+			counter++;
 		}
-		
-		counter++;
 	}
 }

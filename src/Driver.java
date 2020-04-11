@@ -12,15 +12,16 @@ public class Driver {
 	public static void main(String[] args) {
 			
 		FileHelper fileHelper = new FileHelper("src/input.txt","src/commands.txt","src/memconfig.txt"); 			//We use this to help parse input.txt
-		fileHelper.FillWaitingProcesses();																		//We fill an ArrayList of type Process
+		fileHelper.FillWaitingProcesses();																			//We fill an ArrayList of type Process
 		fileHelper.FillCommandList();
 		fileHelper.FillMemConfig();
 		
 		Process.commandList = fileHelper.getCommandList(); //Set the list of commands
 		VMM vmm = new VMM(fileHelper.getMemConfig());
-	
-		//CLEAR STORAGE
+		Process.vmm = vmm;
 		
+		//CLEAR STORAGE
+		//********************************************************************************************************************************************************
 		try 
 		{
 			PrintWriter writer = new PrintWriter("src/storage.txt");
@@ -31,6 +32,8 @@ public class Driver {
 		{
 			e.printStackTrace();
 		}
+		//********************************************************************************************************************************************************
+		
 		
 		
 		//vmm.Store("1",1);
@@ -38,6 +41,7 @@ public class Driver {
 		//vmm.Store("3",3);
 		//vmm.Store("4",4);
 		
+		/*
 		vmm.Store("1", 5);
 		vmm.Store("2", 3);
 		vmm.Store("3", 7);
@@ -47,6 +51,7 @@ public class Driver {
 		vmm.Store("1", 8);
 		vmm.Lookup("1");
 		vmm.Lookup("2");
+		*/
 		
 		Scheduler scheduler = new Scheduler();
 		ArrayList<Process> waitingList = fileHelper.getwaitingProcesses();
