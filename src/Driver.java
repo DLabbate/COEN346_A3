@@ -16,7 +16,7 @@ public class Driver {
 		fileHelper.FillCommandList();
 		fileHelper.FillMemConfig();
 		
-		Process.commandList = fileHelper.getCommandList(); //Set the list of commands
+		Process.commandList = fileHelper.getCommandList(); 					//Set the list of commands
 		VMM vmm = new VMM(fileHelper.getMemConfig());
 		Process.vmm = vmm;
 		
