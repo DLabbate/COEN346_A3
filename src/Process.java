@@ -1,6 +1,7 @@
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.concurrent.*;
 
 public class Process implements Runnable {
 	
@@ -20,8 +21,8 @@ public class Process implements Runnable {
 	
 	public boolean jobInProgress = false;
 	
-	
-	public static final ReentrantLock mutex = new ReentrantLock(); //This mutex lock makes sure only one process has the CPU at a given time
+	public static final int NUM_CPU = 2; 								//The number of CPU
+	public static final Semaphore semaphore = new Semaphore(NUM_CPU); 	//This mutex lock determines the amount of processes that are running
 	
 	//Command List
 	public static ArrayList<Command> commandList;
@@ -55,11 +56,11 @@ public class Process implements Runnable {
 			
 			while (!isFinished)
 			{
-				mutex.lock();
+				semaphore.acquire();
 				jobInProgress = true;
 				try
 				{
-					if (hasCpu)
+					//if (hasCpu)
 					{
 						//Update delta time (since process had the CPU)
 						double delta = System.currentTimeMillis() - enterTime;
@@ -76,7 +77,7 @@ public class Process implements Runnable {
 				finally
 				{
 					jobInProgress = false;
-					mutex.unlock();			//Release mutex
+					semaphore.release();			//Release semaphore
 				}
 				
 			}
