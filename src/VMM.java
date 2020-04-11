@@ -6,6 +6,7 @@ public class VMM implements Runnable{
 
 	private int size;
 	private Variable mainMemory[];
+	private ArrayList<Command> commandList;
 	
 	@Override
 	public void run() {

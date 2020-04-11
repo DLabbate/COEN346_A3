@@ -1,5 +1,6 @@
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Process implements Runnable {
 	
@@ -22,6 +23,8 @@ public class Process implements Runnable {
 	
 	public static final ReentrantLock mutex = new ReentrantLock(); //This mutex lock makes sure only one process has the CPU at a given time
 	
+	public static ArrayList<Command> commandList;
+	//*******************************************************************************************************************************************
 	
 	Process() //Hardcoded values for testing
 	{
