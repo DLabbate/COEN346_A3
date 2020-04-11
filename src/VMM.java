@@ -68,12 +68,55 @@ public class VMM implements Runnable{
 		{
 			if (mainMemory[i].getId() == variableId)
 			{
-				System.out.println("RELEASE " + " Variable: " + variableId + ", Value: " + String.valueOf(mainMemory[i].getValue()));
+				System.out.println("RELEASE (From Main Memory)" + " Variable: " + variableId + ", Value: " + String.valueOf(mainMemory[i].getValue()));
 				mainMemory[i] = null; //RELEASE
 				return;
 			}
 		}
+		
+		//We need to check that it is in storage
+		File fileStorage = new File("src/storage.txt");
+		try (Scanner scannerStorage = new Scanner(fileStorage))
+		{
+			int lineNumber = 0;
+			while (scannerStorage.hasNextLine())
+			{
+				String array[] = scannerStorage.nextLine().split("\t");
+				//System.out.println(array[0]);
+				if ((array[0] != null) && (array[0] != ""))
+				{
+					if (array[0].equals(variableId)) //We found what we were looking for
+					{
+						
+						//Release Spot in Storage
+						Path path = Paths.get("src/storage.txt");
+					    List<String> lines = Files.readAllLines(path);
+					    String data = "-1\t-1";
+					    lines.set(lineNumber,data);
+					    Files.write(path, lines);
+					    System.out.println("RELEASE (Released from Storage): " + "Variable " + array[0] + ", Value: " +  array[1] );
+						
+						return;
+					}
+				}
+				lineNumber++;
+			}
+			scannerStorage.close();
+			//fileWriterStorage.close();
+			
+			//If we reach here, it means its not in storage
+			return;
+			
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
+	
+	
+	
+	
 	
 	public int Lookup(String variableId) 
 	{
@@ -96,16 +139,16 @@ public class VMM implements Runnable{
 		//Open Files
 		try (Scanner scannerStorage = new Scanner(fileStorage))
 		{
-			System.out.println("hello");
+			//System.out.println("hello");
 			//fileWriterStorage = new FileWriter(fileStorage);
 			int lineNumber = 0;
 			while (scannerStorage.hasNextLine())
 			{
 				String array[] = scannerStorage.nextLine().split("\t");
-				System.out.println(array[0]);
+				//System.out.println(array[0]);
 				if ((array[0] != null) && (array[0] != ""))
 				{
-					System.out.println("null check");
+					//System.out.println("null check");
 					if (array[0].equals(variableId)) //We found what we were looking for
 					{
 						Variable variable = new Variable();
@@ -115,7 +158,7 @@ public class VMM implements Runnable{
 						
 						//Swap OR Put in Main Memory
 						int index = checkFreeMainMemory();
-						System.out.println("CheckFreeMainMemory" + index);
+						//System.out.println("CheckFreeMainMemory" + index);
 						if (index != -1) 							//THERE IS SPACE IN MAIN MEMORY
 						{
 							mainMemory[index] = variable;
