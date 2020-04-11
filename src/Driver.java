@@ -35,24 +35,6 @@ public class Driver {
 		//********************************************************************************************************************************************************
 		
 		
-		
-		//vmm.Store("1",1);
-		//vmm.Store("2",2);
-		//vmm.Store("3",3);
-		//vmm.Store("4",4);
-		
-		/*
-		vmm.Store("1", 5);
-		vmm.Store("2", 3);
-		vmm.Store("3", 7);
-		vmm.Lookup("3");
-		vmm.Lookup("2");
-		vmm.Release("1");
-		vmm.Store("1", 8);
-		vmm.Lookup("1");
-		vmm.Lookup("2");
-		*/
-		
 		Scheduler scheduler = new Scheduler();
 		ArrayList<Process> waitingList = fileHelper.getwaitingProcesses();
 		ArrayList<Process> readyList = new ArrayList<>();
