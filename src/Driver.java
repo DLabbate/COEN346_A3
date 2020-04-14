@@ -18,7 +18,8 @@ public class Driver {
 		
 		Process.commandList = fileHelper.getCommandList(); 					//Set the list of commands
 		VMM vmm = new VMM(fileHelper.getMemConfig());
-		Process.vmm = vmm;
+		Process.vmm = vmm;													//Indicate reference to vmm to call API functions
+		Scheduler.vmm = vmm;												//Indicate reference to vmm to notify vmm thread when to end execution 
 		
 		//CLEAR STORAGE
 		//********************************************************************************************************************************************************
@@ -42,9 +43,9 @@ public class Driver {
 		scheduler.setWaitingProcesses(waitingList);							//Give the processes to the scheduler
 		scheduler.setReadyProcesses(readyList);
 		
-		Thread schedulerThread = new Thread(scheduler);					
+		Thread vmmThread = new Thread(vmm);
+		Thread schedulerThread = new Thread(scheduler);		
 		schedulerThread.start();											//Start the round robin scheduler
-		
+		vmmThread.start();													//Start the VMM thread
 	}
-
 }

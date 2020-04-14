@@ -12,6 +12,11 @@ public class Scheduler implements Runnable {
 	
 	private boolean signalNext = false;
 	
+	
+	//VMM reference
+	public static VMM vmm;
+	
+	
 	/*
 	 * The following function gets the elapsed time
 	 * since the scheduler began
@@ -69,6 +74,7 @@ public class Scheduler implements Runnable {
 			}
 			
 		}
+		vmm.setRunning(false);
 		System.out.println("(Time, ms: " + Scheduler.getElapsedtime() + ") " + "*********SCHEDULER FINISHED********");
 	}
 		

@@ -12,10 +12,21 @@ public class VMM implements Runnable{
 
 	private int size;
 	private Variable mainMemory[];
+	
+	protected boolean isRunning = true;
 
 	@Override
 	public void run() {
+		System.out.println("\n[VMM thread starting]");
 		
+		
+		while (isRunning())
+		{
+			//System.out.println(isRunning == true);
+			//Processes calling Store/Release/Lookup (API)
+		}
+		
+		System.out.println("[VMM thread ending]");
 	}
 	
 	public VMM(int size)
@@ -145,10 +156,10 @@ public class VMM implements Runnable{
 			while (scannerStorage.hasNextLine())
 			{
 				String array[] = scannerStorage.nextLine().split("\t");
-				//System.out.println(array[0]);
+				
 				if ((array[0] != null) && (array[0] != ""))
 				{
-					//System.out.println("null check");
+					
 					if (array[0].equals(variableId)) //We found what we were looking for
 					{
 						Variable variable = new Variable();
@@ -159,6 +170,7 @@ public class VMM implements Runnable{
 						//Swap OR Put in Main Memory
 						int index = checkFreeMainMemory();
 						//System.out.println("CheckFreeMainMemory" + index);
+						
 						if (index != -1) 							//THERE IS SPACE IN MAIN MEMORY
 						{
 							mainMemory[index] = variable;
@@ -246,4 +258,13 @@ public class VMM implements Runnable{
 		return index;
 	}
 
+	public synchronized boolean isRunning() {
+		return isRunning;
+	}
+
+	public synchronized void setRunning(boolean isRunning) {
+		this.isRunning = isRunning;
+	}
+
+	
 }
