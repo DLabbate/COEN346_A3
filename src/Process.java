@@ -130,10 +130,10 @@ public class Process implements Runnable {
 
 	private void finish() 
 	{
-		System.out.println("---------------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------------------------------------");
 		System.out.println("(Time, ms: " + Scheduler.getElapsedtime() + ") " + "Process #" + ID + " *FINISHED*");
 		System.out.println("(Time, ms: " + Scheduler.getElapsedtime() + ") " + "Process #" + ID +" Waiting Time: " + waitingTime);
-		System.out.println("---------------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------------------------------------");
 		isFinished = true;
 		hasCpu = false;
 	}

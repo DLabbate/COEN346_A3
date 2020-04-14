@@ -10,11 +10,12 @@ import java.nio.file.Path;
 
 public class VMM implements Runnable{
 
-	private int size;
-	private Variable mainMemory[];
+	private int size;						//Indicated by memconfig file
+	private Variable mainMemory[];			//Main Memory Array
 	
-	protected boolean isRunning = true;
+	protected boolean isRunning = true;		//boolean to indicate whether vmm is running or not
 
+	//VMM runnable
 	@Override
 	public void run() {
 		System.out.println("\n[VMM thread starting]");
@@ -22,18 +23,21 @@ public class VMM implements Runnable{
 		
 		while (isRunning())
 		{
-			//System.out.println(isRunning == true);
 			//Processes calling Store/Release/Lookup (API)
 		}
 		
 		System.out.println("[VMM thread ending]");
 	}
 	
+	//Constructor
 	public VMM(int size)
 	{
 		this.size = size;
 		mainMemory = new Variable[size];
 	}
+	
+	
+	//------------------------------------------------------API-------------------------------------------------------//
 	
 	public void Store (String variableId,int value)
 	{
@@ -93,7 +97,7 @@ public class VMM implements Runnable{
 			while (scannerStorage.hasNextLine())
 			{
 				String array[] = scannerStorage.nextLine().split("\t");
-				//System.out.println(array[0]);
+				
 				if ((array[0] != null) && (array[0] != ""))
 				{
 					if (array[0].equals(variableId)) //We found what we were looking for
@@ -150,7 +154,6 @@ public class VMM implements Runnable{
 		//Open Files
 		try (Scanner scannerStorage = new Scanner(fileStorage))
 		{
-			//System.out.println("hello");
 			//fileWriterStorage = new FileWriter(fileStorage);
 			int lineNumber = 0;
 			while (scannerStorage.hasNextLine())
@@ -169,9 +172,8 @@ public class VMM implements Runnable{
 						
 						//Swap OR Put in Main Memory
 						int index = checkFreeMainMemory();
-						//System.out.println("CheckFreeMainMemory" + index);
 						
-						if (index != -1) 							//THERE IS SPACE IN MAIN MEMORY
+						if (index != -1) //THERE IS SPACE IN MAIN MEMORY
 						{
 							mainMemory[index] = variable;
 							
@@ -185,7 +187,7 @@ public class VMM implements Runnable{
 						    
 						}
 						
-						else 										//NO SPACE IN MAIN MEMORY
+						else //NO SPACE IN MAIN MEMORY
 						{
 							int swapIndex = findLeastAccessTime();
 							Variable temp = mainMemory[swapIndex];
