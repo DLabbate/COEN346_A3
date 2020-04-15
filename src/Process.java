@@ -60,7 +60,7 @@ public class Process implements Runnable {
 				jobInProgress = true;
 				try
 				{
-					//if (hasCpu)
+					if (hasCpu)
 					{
 						//Update delta time (since process had the CPU)
 						double delta = System.currentTimeMillis() - enterTime;
